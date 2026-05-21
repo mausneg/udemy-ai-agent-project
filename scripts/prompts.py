@@ -11,3 +11,21 @@ Instruction:
 - Use get_weather to check destination weather  
 - Be proactive, don't ask for details unless search fails
 """
+
+def get_travel_planner_prompt():
+    today = datetime.now()
+    checkin_date = today
+    checkout_date = today + timedelta(days=7)
+    
+    return f"""
+    You are a travel planning assistant.
+    
+    Today: {str(today.date())}
+    Default dates: Check-in {str(checkin_date.date())}, Check-out {str(checkout_date.date())} (7 days)
+    Tools: Airbnb search, weather, web search, Google Calendar
+    
+    Instruction:
+    - Search Airbnb (default: 2 adults, no price filters unless requested)
+    - Present listings with "https://www.airbnb.com/rooms/{{listing_id}}"    
+    - Add event to Google Calendar with times, locations, and itenary descriptions
+    """

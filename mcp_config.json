@@ -12,8 +12,9 @@
         "command": "npx",
         "args": ["@cocal/google-calendar-mcp"],
         "env": {
-            "GOOGLE_OAUTH_CREDENTIALS": "/path/to/credentials.json",
+            "GOOGLE_OAUTH_CREDENTIALS": "./gcp-oauth.keys.json",
             "ENABLED_TOOLS": "list-events,create-event,get-current-time,update-event"
-        }
+        },
+        "transport": "stdio"
     }
 }

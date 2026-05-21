@@ -11,7 +11,7 @@ import aiosqlite
 load_dotenv()
 
 from scripts.base_tools import web_search, get_weather
-from scripts.prompts import AIRBNB_PROMPT
+from scripts.prompts import AIRBNB_PROMPT, get_travel_planner_prompt
 from scripts.utils import load_mcp_config
 
 model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
@@ -20,16 +20,9 @@ model = ChatGoogleGenerativeAI(model="gemini-2.5-flash")
 async def get_tools():
     mcp_config = load_mcp_config()
     
-    client = MultiServerMCPClient(
-        {
-            "airbnb": {
-                "command": "npx",
-                "args": ["-y", "@openbnb/mcp-server-airbnb", "--ignore-robots-txt"],
-                "transport": "stdio",
-            }
-        }
-    )
+    client = MultiServerMCPClient(mcp_config)
     tools = await client.get_tools()
+    # print(tools)
     return tools + [web_search, get_weather]
 
 
@@ -44,7 +37,7 @@ async def main(query, thread_id):
         agent = create_agent(
             model=model,
             tools=tools,
-            system_prompt=SystemMessage(AIRBNB_PROMPT),
+            system_prompt=SystemMessage(get_travel_planner_prompt()),
             checkpointer=checkpointer,
         )
         response = await agent.ainvoke(
@@ -57,6 +50,6 @@ async def main(query, thread_id):
 
 
 if __name__ == "__main__":
-    query = "show me hotels for a party in Jakarta Indonesia, also check the latest news and weather."
+    query = "Plan a 1 weeks trip for holiday to Lombok Indonesia. Find a comfortable hotels/villa for 2 adults, check weather, and add the trip to my primary Google Calendar"
     thread_id = "session_1"
     asyncio.run(main(query, thread_id))
