@@ -2,7 +2,7 @@ import os
 import json
 
 def load_mcp_config(*server_names):
-    config_path = "mcp_config.json"
+    config_path = "mcp.json"
     
     with open(config_path, "r", encoding="utf-8") as f:
         all_config = json.load(f)
