@@ -4,6 +4,7 @@ import json
 from langchain.tools import tool
 import ollama
 import requests
+from langchain_tavily import TavilySearch
 
 # -------------------------
 # MCP Config Loader
@@ -17,7 +18,7 @@ import requests
 @tool
 def web_search(query: str):
     """
-    Perform a live web search using Ollama Cloud Web Search API for real-time information and news.
+    Perform a live web search using Tavily Web Search API for real-time information and news.
 
     Input:
         query: search query string
@@ -26,10 +27,11 @@ def web_search(query: str):
         JSON string of top results (max_results=2).
     """
 
-    response = ollama.web_search(query=query, max_results=2)
-    response = response.results
+    tavily_search = TavilySearch(max_results=5)
+    results = tavily_search.invoke({"query": query})    
+    
 
-    return response
+    return results
 
 
 # -------------------------
