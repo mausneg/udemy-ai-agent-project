@@ -219,3 +219,5 @@ __marimo__/
 gcp-oauth.keys.json
 *.db
 travel_planner/memory.db
+
+mcp.json

@@ -14,7 +14,7 @@
             "@cocal/google-calendar-mcp"
         ],
         "env": {
-            "GOOGLE_OAUTH_CREDENTIALS": "/home/mausneg/.gmail-mcp/gcp-oauth.keys.json",
+            "GOOGLE_OAUTH_CREDENTIALS": "<YOUR_PATH_TO>/gcp-oauth.keys.json",
             "ENABLED_TOOLS": "list-events,create-event,get-current-time,update-event"
         },
         "transport": "stdio"
@@ -25,8 +25,8 @@
             "mcp-google-sheets@latest"
         ],
         "env": {
-            "CREDENTIALS_PATH": "/home/mausneg/.gmail-mcp/gcp-oauth.keys.json",
-            "TOKEN_PATH": "/home/mausneg/.gmail-mcp/token.json"
+            "CREDENTIALS_PATH": "<YOUR_PATH_TO>/gcp-oauth.keys.json",
+            "TOKEN_PATH": "<YOUR_PATH_TO>/token.json"
         },
         "transport": "stdio"
     },
